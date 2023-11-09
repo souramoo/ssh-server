@@ -41,4 +41,4 @@ jobs:
         push: ${{ github.event_name != 'pull_request' }}
         platforms: linux/amd64
         secrets: |
-          "root_password=${{ secrets.ROOT_PASSWORD }}"
+          "ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD }}"

@@ -4,8 +4,8 @@ FROM python
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
 RUN --mount=type=secret,id=ROOT_PASSWORD \
-   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD)
-RUN echo "root:$ROOT_PASSWORD" | chpasswd
+   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \
+   echo "root:$ROOT_PASSWORD" | chpasswd
 RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login

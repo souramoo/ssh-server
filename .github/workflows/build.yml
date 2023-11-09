@@ -40,3 +40,5 @@ jobs:
           ghcr.io/syntheticgestalt/ssh-server:${{ env.BRANCH }}
         push: ${{ github.event_name != 'pull_request' }}
         platforms: linux/amd64
+        secrets: |
+          "root_password=${{ secrets.ROOT_PASSWORD }}"

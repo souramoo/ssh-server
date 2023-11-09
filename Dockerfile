@@ -3,7 +3,7 @@ FROM python
 
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
-RUN echo 'root:Sg2023!' | chpasswd
+RUN echo "root:$(cat /run/secrets/root_password)" | chpasswd
 RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login

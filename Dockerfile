@@ -3,10 +3,10 @@ FROM python
 
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir /var/run/sshd
-RUN --mount=type=secret,id=ROOT_PASSWORD \
+# RUN --mount=type=secret,id=ROOT_PASSWORD \
    export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \
    echo "root:$ROOT_PASSWORD" | chpasswd
-RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+# RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
 RUN mkdir -p /root/.ssh/
 RUN --mount=type=secret,id=SSH_KEY_1 \
    echo "$(cat /run/secrets/SSH_KEY_1)" >> /root/.ssh/authorized_keys

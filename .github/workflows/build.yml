@@ -42,3 +42,5 @@ jobs:
         platforms: linux/amd64
         secrets: |
           "ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD }}"
+          "SSH_KEY_1=${{ vars.SSH_KEY_1 }}"
+          "SSH_KEY_2=${{ vars.SSH_KEY_2 }}"

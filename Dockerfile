@@ -2,6 +2,7 @@
 FROM python
 
 RUN apt-get update && apt-get install -y openssh-server
+RUN pip3 install pyarrow pydantic rdkit p_tqdm
 RUN mkdir /var/run/sshd
 # RUN --mount=type=secret,id=ROOT_PASSWORD \
 #   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \

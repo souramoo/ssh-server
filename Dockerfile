@@ -1,5 +1,5 @@
 # adapted from https://docs.docker.com/engine/examples/running_ssh_service/
-FROM python
+FROM python:3.11
 
 RUN apt-get update && apt-get install -y openssh-server
 RUN pip3 install pyarrow pydantic rdkit p_tqdm

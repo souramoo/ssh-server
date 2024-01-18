@@ -20,5 +20,9 @@ RUN sed -i 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid
 ENV NOTVISIBLE="in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
+COPY ./run.sh /root/run.sh
+
+RUN chmod +x /root/run.sh
+
 EXPOSE 22
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/root/run.sh"]

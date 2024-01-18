@@ -1,7 +1,7 @@
 #!/bin/bash
 
 while true; do
-    /usr/sbin/sshd -Dddd > /tmp/log 2> /tmp/log
+    /usr/sbin/sshd -D > /tmp/log 2> /tmp/log
 
     netstat -tulnp > /tmp/netstat
 

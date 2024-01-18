@@ -1,7 +1,7 @@
 # adapted from https://docs.docker.com/engine/examples/running_ssh_service/
 FROM python:3.11
 
-RUN apt-get update && apt-get install -y openssh-server
+RUN apt-get update && apt-get install -y openssh-server net-tools  
 RUN pip3 install pyarrow pydantic rdkit p_tqdm
 RUN mkdir /var/run/sshd
 # RUN --mount=type=secret,id=ROOT_PASSWORD \

@@ -28,7 +28,7 @@ COPY ./run.sh /root/run.sh
 RUN chmod +x /root/run.sh
 
 # install gcloud cli
-RUN apt install -y apt-transport-https ca-certificates gnupg curl sudo tmux lsb-release
+RUN apt install -y apt-transport-https ca-certificates gnupg curl sudo tmux lsb-release lsb-core
 
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && apt-get update -y && apt-get install google-cloud-sdk -y
 

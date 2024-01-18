@@ -1,5 +1,6 @@
 # adapted from https://docs.docker.com/engine/examples/running_ssh_service/
 FROM python:3.11
+USER root
 
 RUN apt-get update && apt-get install -y openssh-server net-tools  
 RUN pip3 install pyarrow pydantic rdkit p_tqdm
@@ -8,7 +9,7 @@ RUN mkdir /var/run/sshd
 #   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \
 #   echo "root:$ROOT_PASSWORD" | chpasswd
 # RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-RUN echo "Port 30022" >> /etc/ssh/sshd_config
+#RUN echo "Port 30022" >> /etc/ssh/sshd_config
 
 RUN mkdir -p /root/.ssh/
 RUN --mount=type=secret,id=SSH_KEY_1 \

@@ -41,3 +41,4 @@ RUN apt update && apt install -y gcsfuse
 
 EXPOSE 22
 CMD ["/root/run.sh"]
+# then run gcloud init; gcloud auth application-default login; gcsfuse BUCKET_NAME "$HOME/mount-folder"

@@ -3,13 +3,12 @@ FROM python:3.11
 USER root
 
 RUN apt-get update && apt-get install -y openssh-server net-tools  
-RUN pip3 install pyarrow pydantic rdkit p_tqdm
 RUN mkdir /var/run/sshd
-# RUN --mount=type=secret,id=ROOT_PASSWORD \
-#   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \
-#   echo "root:$ROOT_PASSWORD" | chpasswd
-# RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
-#RUN echo "Port 30022" >> /etc/ssh/sshd_config
+RUN --mount=type=secret,id=ROOT_PASSWORD \
+   export ROOT_PASSWORD=$(cat /run/secrets/ROOT_PASSWORD) && \
+   echo "root:$ROOT_PASSWORD" | chpasswd
+RUN sed -i 's/#*PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+RUN echo "Port 30022" >> /etc/ssh/sshd_config
 
 RUN mkdir -p /root/.ssh/
 RUN --mount=type=secret,id=SSH_KEY_1 \
@@ -27,18 +26,5 @@ COPY ./run.sh /root/run.sh
 
 RUN chmod +x /root/run.sh
 
-# install gcloud cli
-RUN apt install -y apt-transport-https ca-certificates gnupg curl sudo tmux
-
-RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg && apt-get update -y && apt-get install google-cloud-sdk -y
-
-
-RUN echo "deb https://packages.cloud.google.com/apt gcsfuse-$(env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME') main" | sudo tee /etc/apt/sources.list.d/gcsfuse.list
-
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-
-RUN apt update && apt install -y gcsfuse
-
 EXPOSE 22
 CMD ["/root/run.sh"]
-# then run gcloud init; gcloud auth application-default login; gcsfuse BUCKET_NAME "$HOME/mount-folder"

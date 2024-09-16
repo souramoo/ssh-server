@@ -39,7 +39,7 @@ jobs:
         tags: |
           ghcr.io/souramoo/ssh-server:${{ env.BRANCH }}
         push: ${{ github.event_name != 'pull_request' }}
-        platforms: linux/amd64
+        platforms: linux/armhf
         secrets: |
           "ROOT_PASSWORD=${{ secrets.ROOT_PASSWORD }}"
           "SSH_KEY_1=${{ vars.SSH_KEY_1 }}"
